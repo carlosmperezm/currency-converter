@@ -1,0 +1,81 @@
+{% extends 'layouts/base.html' %}
+
+{% block 'content' %}
+
+
+<ul class="messages container text-center">
+  {% for message in messages %}
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <h4><strong>Error</strong></h4>
+    <h6>{{ message }}</h6>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  {% endfor %}
+</ul>
+
+<div class="container text-center p-5">
+  <form action="{% url 'withdraw' %}" method="POST">
+    {% csrf_token %}
+    <h1>Convert</h1>
+    <div class="row justify-content-start ">
+      <div class="col">
+        <select name="currency" class="form-select" aria-label="select" required>
+          <option selected>Choose your initial currency</option>
+          <option value="USD">USD</option>
+          <option value="EUR">EUR</option>
+          <option value="POUND STERLING">POUND STERLING</option>
+          <option value="TURKISH LIRA">TURKISH LIRA</option>
+          <option value="ARGENTINE PESO">ARGENTINE PESO</option>
+          <option value="CHILEAN PESO">CHILEAN PESO</option>
+        </select>
+      </div>
+
+      <div class="col col-lg-2">
+        <input type="number" class="form-control" id="floatingInput" value="0" placeholder="Amount" name="amount"
+          required>
+      </div>
+
+      <div class="col">
+        <select name="currency_to_exchange" class="form-select" aria-label="select" required>
+          <option selected>Choose the currency to exchange to</option>
+          <option value="USD">USD</option>
+          <option value="EUR">EUR</option>
+          <option value="POUND STERLING">POUND STERLING</option>
+          <option value="TURKISH LIRA">TURKISH LIRA</option>
+          <option value="ARGENTINE PESO">ARGENTINE PESO</option>
+          <option value="CHILEAN PESO">CHILEAN PESO</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row justify-content-evenly p-5">
+      <div class="col">
+        <button class="btn btn-primary" type="button" data-bs-toggle="modal"
+          data-bs-target="#withdrawModal">Convert</button>
+      </div>
+    </div>
+
+    <div class="modal fade" id="withdrawModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="modalLabel">Withdraw</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <text>Do you want to withdraw your funds? We will charge 1% for this transaction.</text>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" name="withdraw" value="false" class="btn btn-secondary">No</button>
+            <button type="submit" value="true" name="withdraw" class="btn btn-primary">Withdraw</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+  </form>
+</div>
+{% endblock %}

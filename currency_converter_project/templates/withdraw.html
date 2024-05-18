@@ -1,0 +1,59 @@
+{% extends 'layouts/base.html' %}
+
+{% block 'content' %}
+
+<div class="container p-5 text-center">
+
+  <div class="card">
+    <div class="card-header">
+      Info
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">Information about your transaction</h5>
+      {% if withdraw == 'true' %}
+      <p class="card-text"> You selected exhange {{amount}} {{currency}} to {{currency_to_exchange}} and you got
+        {{received_money|floatformat:2}} {{currency_to_exchange}} with
+        1% less due to your withdrew </p>
+      {% else %}
+      <p class="card-text"> You selected exhange {{amount}} {{currency}} to {{currency_to_exchange}} and you got
+        {{received_money|floatformat:2}} {{currency_to_exchange}}</p>
+      {% endif %}
+      <div class="row justify-content-evenly p-5">
+        <div class="col">
+          <div class="d-grid gap-2 col-4 mx-auto">
+            <button class="btn btn-primary btn" type="button" data-bs-toggle="modal"
+              data-bs-target="#confitmationModal">OK</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="modal fade" id="confitmationModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="modalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="modalLabel">Question</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <text>Do you want to perform another transaction?</text>
+        </div>
+        <div class="modal-footer">
+          <a href="{% url 'index' %}"> <button type="button" class="btn btn-secondary">No</button> </a>
+          <a href="{% url 'convert' %}"><button type="button" class="btn btn-primary">Yes</button> </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+
+
+
+{% endblock %}
